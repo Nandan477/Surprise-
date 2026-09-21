@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Birthday Surprise</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.35),
+                    rgba(0, 0, 0, 0.45)
+                ),
+                url("birthday-photo.jpg")
+                center / cover no-repeat;
+
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            color: white;
+        }
+
+        /* Opening screen */
+
+        #opening {
+            display: block;
+        }
+
+        #opening h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px black;
+        }
+
+        .click-button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+
+            background: white;
+            color: #e91e63;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .click-button:active {
+            transform: scale(0.95);
+        }
+
+
+        /* Birthday screen */
+
+        #birthday {
+            display: none;
+        }
+
+        .cake {
+            font-size: 80px;
+
+            animation: cakeAnimation 1s infinite alternate;
+        }
+
+        .birthday-title {
+            font-size: 45px;
+            margin-top: 20px;
+
+            text-shadow: 2px 2px 10px black;
+
+            animation: appear 1.5s ease;
+        }
+
+        .message {
+            margin-top: 25px;
+
+            font-size: 21px;
+            line-height: 1.7;
+
+            text-shadow: 2px 2px 7px black;
+
+            animation: appear 2s ease;
+        }
+
+
+        /* Cake animation */
+
+        @keyframes cakeAnimation {
+
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-15px);
+            }
+
+        }
+
+
+        /* Text animation */
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: scale(0.7);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+        }
+
+
+        /* Falling celebration emojis */
+
+        .confetti {
+            position: absolute;
+
+            top: -30px;
+
+            animation: fall 4s linear forwards;
+
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+
+            from {
+                transform: translateY(-30px) rotate(0deg);
+            }
+
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- FIRST SCREEN -->
+
+    <div class="container" id="opening">
+
+        <h1>
+            🎁 A Small Surprise For You 🎁
+        </h1>
+
+        <button class="click-button" onclick="startBirthday()">
+            Click Here ✨
+        </button>
+
+    </div>
+
+
+
+    <!-- BIRTHDAY SCREEN -->
+
+    <div class="container" id="birthday">
+
+        <div class="cake">
+            🎂
+        </div>
+
+        <h1 class="birthday-title">
+            🎉 Happy Birthday! 🎉
+        </h1>
+
+        <div class="message">
+
+            <p>
+                Wishing you a very Happy Birthday! 🥳
+            </p>
+
+            <p>
+                May your day be filled with happiness,
+                laughter and beautiful memories. ✨
+            </p>
+
+            <p>
+                Have an amazing birthday! 💖
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        function startBirthday() {
+
+            /* Hide opening screen */
+
+            document.getElementById("opening").style.display = "none";
+
+
+            /* Show birthday screen */
+
+            document.getElementById("birthday").style.display = "block";
+
+
+            /* Start celebration */
+
+            createConfetti();
+
+        }
+
+
+        function createConfetti() {
+
+            const emojis = [
+                "🎉",
+                "🎈",
+                "✨",
+                "💖",
+                "🥳",
+                "⭐"
+            ];
+
+
+            for (let i = 0; i < 40; i++) {
+
+                const item = document.createElement("div");
+
+                item.className = "confetti";
+
+                item.innerHTML =
+                    emojis[
+                        Math.floor(
+                            Math.random() * emojis.length
+                        )
+                    ];
+
+
+                item.style.left =
+                    Math.random() * 100 + "vw";
+
+
+                item.style.fontSize =
+                    (18 + Math.random() * 25) + "px";
+
+
+                item.style.animationDuration =
+                    (2 + Math.random() * 3) + "s";
+
+
+                document.body.appendChild(item);
+
+
+                setTimeout(function() {
+
+                    item.remove();
+
+                }, 5000);
+
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+  </html>
